@@ -23,4 +23,4 @@ The hub focuses on performance, ease of use, and game-specific functionality.
 ## Script Usage
 
 ```lua
-loadstring(game:HttpGet("github.com/Tio30533/Special-Hub/blob/main/Loader.lua"))()
+loadstring(game:HttpGet("[github.com/Tio30533/Special-Hub/blob/main/Loader.lua](https://raw.githubusercontent.com/Tio30533/Special-Hub/refs/heads/main/Loader.lua)"))()
