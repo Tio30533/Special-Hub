@@ -17,10 +17,3 @@ The hub focuses on performance, ease of use, and game-specific functionality.
 |-------------------------|---------------------------------------------------------------|
 | Show Players / Lasers   | Displays player positions and laser paths for better awareness |
 | Auto Trophy             | Automatically collects trophies for faster progression        |
-
----
-
-## Script Usage
-
-```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Tio30533/Special-Hub/refs/heads/main/Loader.lua"))()
