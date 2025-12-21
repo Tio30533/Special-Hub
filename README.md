@@ -1,3 +1,26 @@
 # Special Hub
-# Supported Games:
-- Blind Shot
+
+**Special Hub** is a Roblox script hub designed to provide efficient, high-quality features for supported games.  
+The hub focuses on performance, ease of use, and game-specific functionality.
+
+---
+
+## Supported Games
+
+- **Blind Shot**
+
+---
+
+## Blind Shot – Feature Overview
+
+| Feature Name            | Description                                                   |
+|-------------------------|---------------------------------------------------------------|
+| Show Players / Lasers   | Displays player positions and laser paths for better awareness |
+| Auto Trophy             | Automatically collects trophies for faster progression        |
+
+---
+
+## Script Usage
+
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Tio30533/Special-Hub/main/Blind%20Shot.lua"))()
