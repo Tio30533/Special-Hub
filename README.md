@@ -1,3 +1,3 @@
 # Special Hub
 # Supported Games:
-- Blind SHot
+- Blind Shot
