@@ -8,6 +8,7 @@ The hub focuses on performance, ease of use, and game-specific functionality.
 ## Supported Games
 
 - **Blind Shot**
+- **Flick**
 
 ---
 
@@ -20,4 +21,16 @@ The hub focuses on performance, ease of use, and game-specific functionality.
 ## Blind Shot - Script
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Tio30533/Special-Hub/refs/heads/main/Blind%20Shot.lua"))()
+```
+
+## Flick – Feature Overview
+
+| Feature Name            | Description                                                   |
+|-------------------------|---------------------------------------------------------------|
+| Aimbot                  | Locks Your Camera Onto The Nearest Player                     |
+| ESP                     | Shows Your Enemies Through Walls                              |
+
+## Flick - Script
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Tio30533/Special-Hub/refs/heads/main/Flick.lua"))()
 ```
