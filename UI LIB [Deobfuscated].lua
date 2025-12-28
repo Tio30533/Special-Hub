@@ -746,71 +746,78 @@ function SpecialHub:CreateWindow(options)
     end
     
     function Window:Notify(options)
-        local notification = CreateInstance("Frame", {
-            Parent = screenGui,
-            AnchorPoint = Vector2.new(1, 1),
-            Position = UDim2.new(1, 200, 1, -60),
-            Size = UDim2.new(0, 260, 0, 65),
-            BackgroundColor3 = THEME.Background,
-            BorderSizePixel = 0,
-        })
+    options = options or {}
 
-        local notificationUIList = CreateInstance("UIListLayout", {
-            Parent = NotificationContainer,
-            Padding = UDim.new(0, 10),
-            HorizontalAlignment = Enum.HorizontalAlignment.Right,
-            VerticalAlignment = Enum.VerticalAlignment.Bottom,
-        })
-        
-        CreateRoundedRect(notification, 10)
-        local accentColor = options.Type == "Success" and THEME.Success or
-                           options.Type == "Warning" and THEME.Warning or
-                           options.Type == "Error" and THEME.Danger or
-                           THEME.Accent
-        local accent = CreateInstance("Frame", {
-            Parent = notification,
-            Size = UDim2.new(0, 3, 1, -10),
-            Position = UDim2.new(0, 5, 0, 5),
-            BackgroundColor3 = accentColor,
-            BorderSizePixel = 0,
-        })
-        
-        CreateRoundedRect(accent, 2)
-        local title = CreateInstance("TextLabel", {
-            Parent = notification,
-            Position = UDim2.new(0, 16, 0, 10),
-            Size = UDim2.new(1, -26, 0, 20),
-            BackgroundTransparency = 1,
-            Text = options.Title or "Notification",
-            Font = Enum.Font.GothamBold,
-            TextSize = 14,
-            TextColor3 = THEME.Text,
-            TextXAlignment = Enum.TextXAlignment.Left,
-        })
-        
-        local message = CreateInstance("TextLabel", {
-            Parent = notification,
-            Position = UDim2.new(0, 16, 0, 32),
-            Size = UDim2.new(1, -26, 0, 25),
-            BackgroundTransparency = 1,
-            Text = options.Content or "",
-            Font = Enum.Font.Gotham,
-            TextSize = 12,
-            TextColor3 = THEME.Muted,
-            TextXAlignment = Enum.TextXAlignment.Left,
-            TextWrapped = true,
-        })
-        
-        TweenService:Create(notification, ANIMATIONS.Elastic, {
-            Position = UDim2.new(1, -10, 1, -60)
-        }):Play()
-        task.wait(options.Duration or 3)
+    local notification = CreateInstance("Frame", {
+        Parent = NotificationContainer,
+        Size = UDim2.new(1, 0, 0, 65),
+        BackgroundColor3 = THEME.Background,
+        BorderSizePixel = 0,
+        BackgroundTransparency = 0,
+    })
+
+    CreateRoundedRect(notification, 10)
+
+    local accentColor =
+        options.Type == "Success" and THEME.Success or
+        options.Type == "Warning" and THEME.Warning or
+        options.Type == "Error" and THEME.Danger or
+        THEME.Accent
+
+    local accent = CreateInstance("Frame", {
+        Parent = notification,
+        Size = UDim2.new(0, 3, 1, -10),
+        Position = UDim2.new(0, 5, 0, 5),
+        BackgroundColor3 = accentColor,
+        BorderSizePixel = 0,
+    })
+
+    CreateRoundedRect(accent, 2)
+
+    local title = CreateInstance("TextLabel", {
+        Parent = notification,
+        Position = UDim2.new(0, 16, 0, 8),
+        Size = UDim2.new(1, -26, 0, 20),
+        BackgroundTransparency = 1,
+        Text = options.Title or "Notification",
+        Font = Enum.Font.GothamBold,
+        TextSize = 14,
+        TextColor3 = THEME.Text,
+        TextXAlignment = Enum.TextXAlignment.Left,
+    })
+
+    local message = CreateInstance("TextLabel", {
+        Parent = notification,
+        Position = UDim2.new(0, 16, 0, 30),
+        Size = UDim2.new(1, -26, 0, 28),
+        BackgroundTransparency = 1,
+        Text = options.Content or "",
+        Font = Enum.Font.Gotham,
+        TextSize = 12,
+        TextColor3 = THEME.Muted,
+        TextWrapped = true,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        TextYAlignment = Enum.TextYAlignment.Top,
+    })
+
+    -- slide in from right
+    notification.Position = UDim2.new(1, 200, 0, 0)
+    TweenService:Create(notification, ANIMATIONS.Elastic, {
+        Position = UDim2.new(0, 0, 0, 0)
+    }):Play()
+
+    -- auto remove
+    task.delay(options.Duration or 3, function()
         TweenService:Create(notification, ANIMATIONS.Smooth, {
-            Position = UDim2.new(1, 200, 1, -60)
+            Position = UDim2.new(1, 200, 0, 0),
+            BackgroundTransparency = 1
         }):Play()
+
         task.wait(0.35)
         notification:Destroy()
-    end
+    end)
+end
+    
     return Window
 end
 
