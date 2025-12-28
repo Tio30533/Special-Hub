@@ -754,6 +754,13 @@ function SpecialHub:CreateWindow(options)
             BackgroundColor3 = THEME.Background,
             BorderSizePixel = 0,
         })
+
+        local notificationUIList = CreateInstance("UIListLayout", {
+            Parent = NotificationContainer,
+            Padding = UDim.new(0, 10),
+            HorizontalAlignment = Enum.HorizontalAlignment.Right,
+            VerticalAlignment = Enum.VerticalAlignment.Bottom,
+        })
         
         CreateRoundedRect(notification, 10)
         local accentColor = options.Type == "Success" and THEME.Success or
