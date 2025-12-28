@@ -1,4 +1,5 @@
 local SpecialHub = {}
+
 local UserInputService = game:GetService("UserInputService")
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if input.KeyCode == Enum.KeyCode.LeftShift then
@@ -12,6 +13,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         end)
     end
 end)
+
 UserInputService.InputEnded:Connect(function(input, gameProcessed)
     if input.KeyCode == Enum.KeyCode.LeftShift then
         task.spawn(function()
@@ -23,19 +25,20 @@ UserInputService.InputEnded:Connect(function(input, gameProcessed)
         end)
     end
 end)
+
 local PlayerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 local function PreventMultipleGUI()
     if PlayerGui:FindFirstChild("SpecialHub") then
         PlayerGui:FindFirstChild("SpecialHub"):Destroy()
-        task.wait(0.1)
+        task.wait(0.001)
     end
 end
+
 SpecialHub.ConfigSystem = {}
 SpecialHub.ConfigSystem.FolderName = nil
 SpecialHub.ConfigSystem.ConfigFileName = "config.json"
 SpecialHub.ConfigSystem.AutoSave = false
 SpecialHub.ConfigSystem.ElementCallbacks = {}
-
 function SpecialHub.ConfigSystem:SetFolder(folderName)
     self.FolderName = folderName
     if folderName and folderName ~= "" then
@@ -136,12 +139,14 @@ local function CreateInstance(className, properties)
     end
     return instance
 end
+
 local function CreateRoundedRect(parent, radius)
     return CreateInstance("UICorner", {
         Parent = parent,
         CornerRadius = UDim.new(0, radius or 8)
     })
 end
+
 local function AnimateHover(object, hoverColor, normalColor)
     object.MouseEnter:Connect(function()
         TweenService:Create(object, ANIMATIONS.Fast, {
@@ -154,12 +159,12 @@ local function AnimateHover(object, hoverColor, normalColor)
         }):Play()
     end)
 end
+
 function SpecialHub:CreateWindow(options)
     options = options or {}
     local windowName = options.Name or "Special Hub"
     local windowSize = options.Size or UDim2.new(0, 380, 0, 320)
     local toggleKeybind = options.ToggleKeybind or Enum.KeyCode.RightShift
-    
     if options.AutoSave ~= nil then
         self.ConfigSystem.AutoSave = options.AutoSave
     end
@@ -225,7 +230,6 @@ function SpecialHub:CreateWindow(options)
         TextColor3 = THEME.Text,
         AutoButtonColor = false,
     })
-    
     CreateRoundedRect(toggleButton, 10)
     CreateInstance("UIStroke", {
         Parent = toggleButton,
@@ -233,7 +237,6 @@ function SpecialHub:CreateWindow(options)
         Transparency = 0.85,
         Color = THEME.Line
     })
-    
     CreateInstance("ImageLabel", {
         Parent = toggleButton,
         Name = "Shadow",
@@ -247,7 +250,6 @@ function SpecialHub:CreateWindow(options)
         BackgroundTransparency = 1,
         ZIndex = 0
     })
-    
     local mainFrame = CreateInstance("Frame", {
         Parent = screenGui,
         AnchorPoint = Vector2.new(0.5, 0.5),
@@ -258,7 +260,6 @@ function SpecialHub:CreateWindow(options)
         ClipsDescendants = true,
         Visible = false,
     })
-    
     CreateRoundedRect(mainFrame, 12)
     CreateInstance("UIStroke", {
         Parent = mainFrame,
@@ -266,7 +267,6 @@ function SpecialHub:CreateWindow(options)
         Transparency = 0.7,
         Color = THEME.Line
     })
-    
     CreateInstance("ImageLabel", {
         Parent = mainFrame,
         Name = "Shadow",
@@ -280,13 +280,11 @@ function SpecialHub:CreateWindow(options)
         BackgroundTransparency = 1,
         ZIndex = -1
     })
-    
     local topBar = CreateInstance("Frame", {
         Parent = mainFrame,
         Size = UDim2.new(1, 0, 0, 36),
         BackgroundTransparency = 1
     })
-    
     local title = CreateInstance("TextLabel", {
         Parent = topBar,
         Position = UDim2.new(0, 14, 0, 0),
@@ -298,7 +296,6 @@ function SpecialHub:CreateWindow(options)
         TextColor3 = THEME.Text,
         TextXAlignment = Enum.TextXAlignment.Left,
     })
-    
     local closeButton = CreateInstance("TextButton", {
         Parent = topBar,
         AnchorPoint = Vector2.new(1, 0.5),
@@ -313,10 +310,8 @@ function SpecialHub:CreateWindow(options)
         TextColor3 = THEME.Muted,
         AutoButtonColor = false,
     })
-    
     CreateRoundedRect(closeButton, 8)
     AnimateHover(closeButton, THEME.Danger, THEME.Content)
-    
     local tabBarContainer = CreateInstance("Frame", {
         Parent = mainFrame,
         Position = UDim2.new(0, 10, 0, 38),
@@ -324,14 +319,12 @@ function SpecialHub:CreateWindow(options)
         BackgroundColor3 = THEME.TabBg,
         BackgroundTransparency = 0.3,
     })
-    
     CreateRoundedRect(tabBarContainer, 8)
     local tabBar = CreateInstance("Frame", {
         Parent = tabBarContainer,
         Size = UDim2.new(1, 0, 1, 0),
         BackgroundTransparency = 1,
     })
-    
     CreateInstance("UIListLayout", {
         Parent = tabBar,
         FillDirection = Enum.FillDirection.Horizontal,
@@ -339,7 +332,6 @@ function SpecialHub:CreateWindow(options)
         HorizontalAlignment = Enum.HorizontalAlignment.Center,
         VerticalAlignment = Enum.VerticalAlignment.Center
     })
-    
     CreateInstance("UIPadding", {
         Parent = tabBar,
         PaddingLeft = UDim.new(0, 5),
@@ -347,7 +339,6 @@ function SpecialHub:CreateWindow(options)
         PaddingTop = UDim.new(0, 3),
         PaddingBottom = UDim.new(0, 3)
     })
-    
     local contentContainer = CreateInstance("Frame", {
         Parent = mainFrame,
         Position = UDim2.new(0, 10, 0, 72),
@@ -355,9 +346,7 @@ function SpecialHub:CreateWindow(options)
         BackgroundTransparency = 1,
         ClipsDescendants = true,
     })
-    
     local isOpen = false
-    
     local function ToggleWindow()
         isOpen = not isOpen
         if isOpen then
@@ -401,23 +390,19 @@ function SpecialHub:CreateWindow(options)
             mainFrame.Visible = false
         end
     end
-    
     toggleButton.MouseButton1Click:Connect(ToggleWindow)
     closeButton.MouseButton1Click:Connect(function()
         if isOpen then
             ToggleWindow()
         end
     end)
-    
     UserInputService.InputBegan:Connect(function(input, gameProcessed)
         if not gameProcessed and input.KeyCode == toggleKeybind then
             ToggleWindow()
         end
     end)
-    
     local dragging = false
     local dragStart, startPos
-    
     topBar.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
@@ -430,7 +415,6 @@ function SpecialHub:CreateWindow(options)
             end)
         end
     end)
-    
     UserInputService.InputChanged:Connect(function(input)
         if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
             local delta = input.Position - dragStart
@@ -445,9 +429,7 @@ function SpecialHub:CreateWindow(options)
             }):Play()
         end
     end)
-    
     local isFirstTab = true
-    
     function Window:CreateTab(tabName)
         local Tab = {}
         Tab.Elements = {}
@@ -464,14 +446,12 @@ function SpecialHub:CreateWindow(options)
             TextColor3 = isFirstTab and THEME.Text or THEME.Muted,
             AutoButtonColor = false,
         })
-        
         CreateRoundedRect(tabButton, 6)
         CreateInstance("UIPadding", {
             Parent = tabButton,
             PaddingLeft = UDim.new(0, 14),
             PaddingRight = UDim.new(0, 14)
         })
-        
         local tabContent = CreateInstance("ScrollingFrame", {
             Parent = contentContainer,
             Size = UDim2.new(1, 0, 1, 0),
@@ -483,18 +463,15 @@ function SpecialHub:CreateWindow(options)
             CanvasSize = UDim2.new(0, 0, 0, 0),
             Visible = isFirstTab,
         })
-        
         CreateInstance("UIListLayout", {
             Parent = tabContent,
             SortOrder = Enum.SortOrder.LayoutOrder,
             Padding = UDim.new(0, 8)
         })
-        
         if isFirstTab then
             Window.CurrentTab = tabContent
             isFirstTab = false
         end
-        
         tabButton.MouseButton1Click:Connect(function()
             if Window.CurrentTab and Window.CurrentTab ~= tabContent then
                 TweenService:Create(Window.CurrentTab, ANIMATIONS.Fast, {
@@ -511,7 +488,6 @@ function SpecialHub:CreateWindow(options)
                     }):Play()
                 end
             end
-            
             TweenService:Create(tabButton, ANIMATIONS.Normal, {
                 BackgroundTransparency = 0.2,
                 TextColor3 = THEME.Text
@@ -523,14 +499,12 @@ function SpecialHub:CreateWindow(options)
             }):Play()
             Window.CurrentTab = tabContent
         end)
-        
         local function UpdateCanvas()
             local listLayout = tabContent:FindFirstChildOfClass("UIListLayout")
             if listLayout then
                 tabContent.CanvasSize = UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y + 10)
             end
         end
-        
         function Tab:CreateSection(sectionName)
             local Section = {}
             local section = CreateInstance("Frame", {
@@ -571,7 +545,6 @@ function SpecialHub:CreateWindow(options)
                 Parent = content,
                 PaddingBottom = UDim.new(0, 10)
             })
-            
             function Section:CreateInput(options)
                 local saveKey = options.Name
                 local defaultValue = Window:GetConfigValue(saveKey, options.Default or "")
@@ -624,7 +597,6 @@ function SpecialHub:CreateWindow(options)
                         end
                     end
                 end)
-                
                 SpecialHub.ConfigSystem:RegisterCallback(saveKey, function(value)
                     inputBox.Text = tostring(value)
                     if options.Callback then
@@ -634,17 +606,14 @@ function SpecialHub:CreateWindow(options)
                 UpdateCanvas()
                 return input
             end
-            
             function Section:CreateToggle(options)
                 local saveKey = options.Name
                 local defaultValue = Window:GetConfigValue(saveKey, options.Default or false)
-                
                 local toggle = CreateInstance("Frame", {
                     Parent = content,
                     Size = UDim2.new(1, 0, 0, 28),
                     BackgroundTransparency = 1,
                 })
-                
                 local label = CreateInstance("TextLabel", {
                     Parent = toggle,
                     Size = UDim2.new(1, -46, 1, 0),
@@ -655,7 +624,6 @@ function SpecialHub:CreateWindow(options)
                     TextColor3 = THEME.Text,
                     TextXAlignment = Enum.TextXAlignment.Left,
                 })
-                
                 local toggleButton = CreateInstance("TextButton", {
                     Parent = toggle,
                     AnchorPoint = Vector2.new(1, 0.5),
@@ -666,7 +634,6 @@ function SpecialHub:CreateWindow(options)
                     AutoButtonColor = false,
                     Text = "",
                 })
-                
                 CreateRoundedRect(toggleButton, 10)
                 local toggleKnob = CreateInstance("Frame", {
                     Parent = toggleButton,
@@ -676,7 +643,6 @@ function SpecialHub:CreateWindow(options)
                     BackgroundColor3 = Color3.fromRGB(255, 255, 255),
                     BorderSizePixel = 0,
                 })
-                
                 CreateRoundedRect(toggleKnob, 8)
                 local isToggled = defaultValue
                 local function UpdateToggle(value)
@@ -688,7 +654,6 @@ function SpecialHub:CreateWindow(options)
                         Position = isToggled and UDim2.new(0.75, 0, 0.5, 0) or UDim2.new(0.25, 0, 0.5, 0)
                     }):Play()
                 end
-                
                 toggleButton.MouseButton1Click:Connect(function()
                     isToggled = not isToggled
                     UpdateToggle(isToggled)
@@ -697,7 +662,6 @@ function SpecialHub:CreateWindow(options)
                         options.Callback(isToggled)
                     end
                 end)
-                
                 SpecialHub.ConfigSystem:RegisterCallback(saveKey, function(value)
                     UpdateToggle(value)
                     if options.Callback then
@@ -707,7 +671,6 @@ function SpecialHub:CreateWindow(options)
                 UpdateCanvas()
                 return toggle
             end
-            
             function Section:CreateButton(options)
                 local button = CreateInstance("TextButton", {
                     Parent = content,
@@ -744,7 +707,6 @@ function SpecialHub:CreateWindow(options)
         table.insert(Window.Tabs, {Button = tabButton, Content = tabContent})
         return Tab
     end
-    
     function Window:Notify(options)
         local notification = CreateInstance("Frame", {
             Parent = screenGui,
@@ -754,7 +716,6 @@ function SpecialHub:CreateWindow(options)
             BackgroundColor3 = THEME.Background,
             BorderSizePixel = 0,
         })
-        
         CreateRoundedRect(notification, 10)
         local accentColor = options.Type == "Success" and THEME.Success or
                            options.Type == "Warning" and THEME.Warning or
@@ -767,7 +728,6 @@ function SpecialHub:CreateWindow(options)
             BackgroundColor3 = accentColor,
             BorderSizePixel = 0,
         })
-        
         CreateRoundedRect(accent, 2)
         local title = CreateInstance("TextLabel", {
             Parent = notification,
@@ -780,7 +740,6 @@ function SpecialHub:CreateWindow(options)
             TextColor3 = THEME.Text,
             TextXAlignment = Enum.TextXAlignment.Left,
         })
-        
         local message = CreateInstance("TextLabel", {
             Parent = notification,
             Position = UDim2.new(0, 16, 0, 32),
@@ -793,7 +752,6 @@ function SpecialHub:CreateWindow(options)
             TextXAlignment = Enum.TextXAlignment.Left,
             TextWrapped = true,
         })
-        
         TweenService:Create(notification, ANIMATIONS.Elastic, {
             Position = UDim2.new(1, -10, 1, -60)
         }):Play()
@@ -806,5 +764,4 @@ function SpecialHub:CreateWindow(options)
     end
     return Window
 end
-
 return SpecialHub
