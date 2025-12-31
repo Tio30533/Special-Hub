@@ -9,6 +9,7 @@ The hub focuses on performance, ease of use, and game-specific functionality.
 
 - **Blind Shot**
 - **Flick**
+- **Steal A Brainrot**
 
 ---
 
@@ -33,4 +34,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Tio30533/Special-Hub/
 ## Flick - Script
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Tio30533/Special-Hub/refs/heads/main/Flick.lua"))()
+```
+
+## Steal A Brainrot – Feature Overview
+
+| Feature Name            | Description                                                   |
+|-------------------------|---------------------------------------------------------------|
+| Instant Steal           | Instantly Steals The Brainrot                                 |
+| Desync                  | Desyncs Your Character (Required For Instant Steal)           |
+
+## Steal A Brainrot - Script
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Tio30533/Special-Hub/refs/heads/main/Steal%20A%20Brainrot.lua"))()
 ```
