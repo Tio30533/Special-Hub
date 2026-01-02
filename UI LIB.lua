@@ -606,6 +606,15 @@ function SpecialHub:CreateWindow(options)
                 UpdateCanvas()
                 return input
             end
+
+            function Section:ClearButtons()
+                for _, child in ipairs(content:GetChildren()) do
+                    if child:IsA("TextButton") then
+                    child:Destroy()
+                    end
+                end
+            end
+            
             function Section:CreateToggle(options)
                 local saveKey = options.Name
                 local defaultValue = Window:GetConfigValue(saveKey, options.Default or false)
